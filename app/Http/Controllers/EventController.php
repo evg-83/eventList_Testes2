@@ -7,108 +7,61 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\UsersParty;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index(User $user)
+    public function index(Event $event)
     {
-        $events = Event::all();
-        $eventsUserId = $user->events;
+        $userAuth = auth()->user();
+        $events   = Event::all();
 
-        // foreach ($eventsUserId as $eventUserId) {
-        //     if ($eventUserId->user_id == $user->id) {
-        //         $userShow = $eventUserId->user_id;
-        //     }
-        // }
+        $usersParty = $event->usersParties;
 
-        foreach ($events as $event) {
-            if ($event->user_id == $user->id) {
-                $usersParty = $event->usersParties;
-                // dd( $usersParty );
-            }
-        }
+        return view('event.index', compact('event', 'events', 'userAuth', 'usersParty'));
+    }
 
+    public function show(UsersParty $usersParty)
+    {
         $userAuth = auth()->user();
 
         $users = User::all();
 
-        foreach ($eventsUserId as $eventUserId) {
-            foreach ($users as $userAll) {
-                if ($userAll->id == $eventUserId->user_id) {
-                    foreach ($usersParty as $userParty) {
-                        if ($userParty->login == $userAll->login) {
-                            $userIdShow = $userAll->id;
-                            // dd( $userIdShow );
-                        }
-                    }
-                }
-            }
+        foreach ($users as $user) {
+            $userLog = $user->where('login', $usersParty->login)->get();
         }
 
-        return view('event.index', compact('user', 'events', 'eventsUserId', 'usersParty', 'userAuth', 'userIdShow'));
+        return view('event.show', compact('usersParty', 'userLog', 'userAuth'));
     }
 
-    public function show(User $user)
-    {
-        $events     = $user->events;
-
-        $eventsForParty = Event::all();
-
-        foreach ($eventsForParty as $eventForParty) {
-            if ($eventForParty->user_id == $user->id) {
-                $usersParty = $eventForParty->usersParties;
-            }
-        }
-
-        return view('event.show', compact('user', 'events', 'usersParty'));
-    }
-
-    public function update(User $user)
+    public function update(Event $event)
     {
         $userAuth = auth()->user();
 
         $full_name = $userAuth->first_name . ' ' . $userAuth->last_name;
 
-        $events     = $user->events;
-
-        foreach ($events as $event) {
-            $dataUsersParty = [
-                'name'     => $full_name,
-                'event_id' => $event->id,
-                'login'    => $userAuth->login,
-            ];
-        }
+        $dataUsersParty = [
+            'name'     => $full_name,
+            'event_id' => $event->id,
+            'login'    => $userAuth->login,
+        ];
 
         $usersParty = new UsersParty();
 
         $usersParty->create($dataUsersParty);
 
-        return redirect()->route('event.index', $user->id);
+        return redirect()->route('event.index', $event->id);
     }
 
-    public function deleteUserParty(User $user)
+    public function deleteUserParty(Event $event)
     {
         $userAuth = auth()->user();
-        $events   = $user->events;
 
-        $eventsForParty = Event::all();
+        $usersParty = $event->usersParties;
 
-        foreach ($eventsForParty as $eventForParty) {
-            if ($eventForParty->user_id == $user->id) {
-                $usersParty = $eventForParty->usersParties;
-                // dd( $usersParty );
-            }
+        foreach ($usersParty as $userParty) {
+            $userParty->where('login', $userAuth->login)->delete();
         }
 
-        foreach ($events as $event) {
-            foreach ($usersParty as $userParty) {
-                if ($event->id == $userParty->event_id) {
-                    UsersParty::where('login', $userAuth->login)->delete();
-                }
-            }
-        }
-
-        return redirect()->route('event.index', $user->id);
+        return redirect()->route('event.index', $event->id);
     }
 }

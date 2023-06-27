@@ -7,16 +7,16 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6 d-flex align-items-center">
-            <h1 class="m-0 mr-2">{{ $user->first_name }}</h1>
+            <h1 class="m-0 mr-2">{{ $userLog->pluck('first_name')->first() }}</h1>
             </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a
-                  href="{{ route('event.index', $user->id) }}">Главная</a></li>
+                  href="{{ route('event.index', $userAuth->id) }}">Главная</a></li>
               <li class="breadcrumb-item"><a
                   href="{{ route('admin.index') }}">Админ</a></li>
-              <li class="breadcrumb-item active">{{ $user->first_name }}</li>
+              <li class="breadcrumb-item active">{{ $userLog->pluck('first_name')->first() }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,56 +37,27 @@
                   <tbody>
                     <tr>
                       <td>ID</td>
-                      <td>{{ $user->id }}</td>
+                      <td>{{ $userLog->pluck('id')->first() }}</td>
                     </tr>
                     <tr>
                       <td>Логин</td>
-                      <td>{{ $user->login }}</td>
+                      <td>{{ $userLog->pluck('login')->first() }}</td>
                     </tr>
                     <tr>
                       <td>Имя</td>
-                      <td>{{ $user->first_name }}</td>
+                      <td>{{ $userLog->pluck('first_name')->first() }}</td>
                     </tr>
                     <tr>
                       <td>Фамилия</td>
-                      <td>{{ $user->last_name }}</td>
-                    </tr>
-                    <tr>
-                      <td>Название события</td>
-                      @foreach ($events as $event)
-                        <td>{{ $event->title }}</td>
-                      @endforeach
-                    </tr>
-                    <tr>
-                      <td>Описание события</td>
-                      @foreach ($events as $event)
-                        <td>{{ $event->content }}</td>
-                      @endforeach
-                    </tr>
-                    <tr>
-                      <td>Участники события</td>
-                      @foreach ($usersParty as $userParty)
-                        <td>
-                          {{ $userParty->name }}
-                        </td>
-                      @endforeach
+                      <td>{{ $userLog->pluck('last_name')->first() }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
-
-      <!-- /.row (main row) -->
-  </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+    </section>
   </div>
-  <!-- /.content-wrapper -->
 @endsection

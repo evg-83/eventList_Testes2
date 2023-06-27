@@ -26,19 +26,13 @@
 
         <div class="card-body">
           <div class="pl-0">
-            @foreach ($eventsUserId as $eventUserId)
-              <h1 class="m-0">{{ $eventUserId->title }}</h1>
-            @endforeach
+            <h1 class="m-0">{{ $event->title }}</h1>
           </div>
           <div class="pl-0 mt-3">
-            @foreach ($eventsUserId as $eventUserId)
-              <h3 class="m-0">{{ $eventUserId->content }}</h3>
-            @endforeach
+            <h3 class="m-0">{{ $event->content }}</h3>
           </div>
           <div class="pl-0 mt-3">
-            @foreach ($eventsUserId as $eventUserId)
-              <h5 class="m-0">{{ $eventUserId->created_at }}</h5>
-            @endforeach
+            <h5 class="m-0">{{ $event->created_at }}</h5>
           </div>
         </div>
 
@@ -50,7 +44,7 @@
             @foreach ($usersParty as $userParty)
               <ul>
                 <li>
-                  <a href="{{ route('event.show', ['id'=>$userIdShow]) }}" class="nav-link">
+                  <a href="{{ route('event.show', $userParty->id)}}" class="nav-link">
                     <h5 class="m-0">{{ $userParty->name }}</h5>
                   </a>
                 </li>
@@ -61,37 +55,32 @@
 
 
         <div class="pl-0">
-          @foreach ($eventsUserId as $eventUserId)
-            @if ($userAuth->id != $eventUserId->user_id)
-              <form action="{{ route('event.update', $user->id) }}" method="POST"
-                class="w-25">
-                @csrf
-                <div class="form-group">
-                  <input type="hidden" name="user_id"
-                    value="{{ $user->id }}">
-                </div>
-                <input type="submit" class="btn btn-outline-primary"
-                  value="Принять участие">
-              </form>
-            @endif
-          @endforeach
+          @if ($userAuth->id != $event->user_id)
+            <form action="{{ route('event.update', $event->id) }}" method="POST"
+              class="w-25">
+              @csrf
+              <div class="form-group">
+                <input type="hidden" name="event_id" value="{{ $event->id }}">
+              </div>
+              <input type="submit" class="btn btn-outline-primary"
+                value="Принять участие">
+            </form>
+          @endif
         </div>
         <div class="pl-0">
-          @foreach ($eventsUserId as $eventUserId)
-            @if ($userAuth->id == $eventUserId->user_id)
-              <form action="{{ route('event.deleteUserParty', $user->id) }}"
-                method="POST" class="w-25">
-                @csrf
-                @method('DELETE')
-                <div class="form-group">
-                  <input type="hidden" name="userDeleteParty"
-                    value="{{ $user->id }}">
-                </div>
-                <input type="submit" class="btn btn-outline-primary"
-                  value="Отказаться от участия">
-              </form>
-            @endif
-          @endforeach
+          @if ($userAuth->id == $event->user_id)
+            <form action="{{ route('event.deleteUserParty', $event->id) }}"
+              method="POST" class="w-25">
+              @csrf
+              @method('DELETE')
+              <div class="form-group">
+                <input type="hidden" name="userDeleteParty"
+                  value="{{ $event->id }}">
+              </div>
+              <input type="submit" class="btn btn-outline-primary"
+                value="Отказаться от участия">
+            </form>
+          @endif
         </div>
 
         <div class="row">
@@ -117,8 +106,7 @@
     <div>
       <ul class="pt-3 nav nav-pills nav-sidebar flex-column"
         data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Добавить значки в ссылки, используя класс .nav-icon
-                                                                      с шрифтом-удивительной или любой другой библиотекой шрифтов -->
+
         <li class="nav-item mb-5 pl-5">
           <div class="col-sm-6">
             <h1 class="m-0">{{ $userAuth->first_name }}</h1>

@@ -26,10 +26,6 @@ class AuthController extends Controller
         ];
 
         User::firstOrCreate($dataUser);
-        // $user = new User();
-        // $user->login = $request->login;
-        // $user->password = Hash::make($request->password);
-        // $user->save();
 
         return redirect()->route('auth.login')->with('success', 'Регистрация прошла успешно');
     }

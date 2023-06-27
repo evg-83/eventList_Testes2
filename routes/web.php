@@ -34,8 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/{user}', [App\Http\Controllers\Admin\AdminController::class, 'show'])->name('admin.show');
     Route::delete('/admin/{user}', [App\Http\Controllers\Admin\AdminController::class, 'delete'])->name('admin.delete');
 
-    Route::get('/event/{user}', [App\Http\Controllers\EventController::class, 'index'])->name('event.index');
-    Route::get('/event/{id}/show', [App\Http\Controllers\EventController::class, 'show'])->name('event.show');
-    Route::post('/event/{user}', [App\Http\Controllers\EventController::class, 'update'])->name('event.update');
-    Route::delete('/event/{user}', [App\Http\Controllers\EventController::class, 'deleteUserParty'])->name('event.deleteUserParty');
+    Route::get('/event/{event}', [App\Http\Controllers\EventController::class, 'index'])->name('event.index');
+    Route::get('/event/show/{usersParty}', [App\Http\Controllers\EventController::class, 'show'])->name('event.show');
+    Route::post('/event/{event}', [App\Http\Controllers\EventController::class, 'update'])->name('event.update');
+    Route::delete('/event/{event}', [App\Http\Controllers\EventController::class, 'deleteUserParty'])->name('event.deleteUserParty');
 });
