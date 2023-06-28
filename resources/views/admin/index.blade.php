@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Имена</h1>
+            <h1 class="m-0">Пользователи</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a
-                  href="#">Пользователи</a></li>
+                  href="{{ route('event.event') }}">События</a></li>
               <li class="breadcrumb-item active">Админ</li>
             </ol>
           </div><!-- /.col -->
@@ -27,8 +27,8 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-1.5 mb-3">
-            <a href="{{ route('admin.create') }}"
-              class="btn btn-block btn-primary">Добавить</a>
+            {{-- <a href="{{ route('admin.create') }}"
+              class="btn btn-block btn-primary">Добавить</a> --}}
           </div>
         </div>
         <div class="row">
@@ -58,13 +58,8 @@
                         <td class="text-center"><a
                             href="{{ route('admin.show', $user->id) }}"><i
                               class="far fa-regular fa-eye"></i></a></td>
-                        {{-- <td class="text-center"><a
-                            href="{{ route('admin.edit', $user->id) }}"
-                            class="text-success"><i
-                              class="fas fa-pencil-alt"></i></a></td> --}}
                         <td class="text-center">
-                          <form
-                            action="{{ route('admin.delete', $user->id) }}"
+                          <form action="{{ route('admin.delete', $user->id) }}"
                             method="POST">
                             @csrf
                             @method('DELETE')
@@ -80,19 +75,55 @@
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
-
-      <!-- /.row (main row) -->
-  </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+    </section>
   </div>
-  <!-- /.content-wrapper -->
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+
+    <!-- Sidebar -->
+    <div>
+      <ul class="pt-3 nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview" role="menu" data-accordion="false">
+
+        <li class="nav-item mb-5 pl-5">
+          <div class="col-sm-6">
+            <h1 class="m-0">{{ $userAuth->first_name }}</h1>
+          </div>
+        </li>
+
+        <div id="events">
+          <li class="nav-item">
+            <div class="nav-link">
+              <i class="nav-icon fas fa-solid fa-users"></i>
+              <p>
+                Все события
+              </p>
+            </div>
+            <div class="card-body table-responsive p-0" style="height: 400px;">
+              <table class="table table-head-fixed text-nowrap">
+                <tbody>
+                  @foreach ($events as $event)
+                    <tr>
+                      <td class="pl-5">
+                        <a href="{{ route('event.showEvent', $event->id) }}"
+                          class="nav-link">
+                          {{ $event->title }}
+                        </a>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <!-- /.sidebar -->
+  </aside>
 @endsection

@@ -45,18 +45,19 @@
       <div class="col-12 d-flex justify-content-between">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#"
-              role="button"><i class="fas fa-bars"></i></a>
+            {{-- <a class="nav-link" data-widget="pushmenu" href="#"
+              role="button"><i class="fas fa-bars"></i></a> --}}
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <form action="#" method="post">
-              @csrf
-              <input class="btn btn-outline-primary" type="submit"
-                value="Выйти">
-            </form>
-        </ul>
+            <form action="{{ route('auth.logout') }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input class="btn btn-outline-primary" type="submit"
+                  value="Выйти">
+              </form>
+          </ul>
       </div>
     </nav>
     <!-- /.navbar -->

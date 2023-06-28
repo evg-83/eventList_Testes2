@@ -11,8 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a
-                  href="#">Главная</a></li>
+              <li class="breadcrumb-item"><a href="#">Главная</a></li>
               <li class="breadcrumb-item"><a
                   href="{{ route('admin.index') }}">Пользователи</a></li>
               <li class="breadcrumb-item active">Добавление данных</li>
@@ -32,32 +31,6 @@
             <form action="{{ route('admin.store') }}" method="POST"
               class="">
               @csrf
-              {{-- <div class="form-group">
-                <input type="text" class="form-control" name="login"
-                  placeholder="Логин пользователя" required> --}}
-                {{-- @error('login')
-                  <div class="text-danger">{{ $message }}</div>
-                @enderror --}}
-              {{-- </div> --}}
-              {{-- <div class="form-group">
-                <input type="password" class="form-control" name="password"
-                  placeholder="Пароль" required> --}}
-                {{-- @error('password')
-                  <div class="text-danger">{{ $message }}</div>
-                @enderror --}}
-              {{-- </div> --}}
-              {{-- <div class="form-group">
-                <input type="text" class="form-control" name="first_name"
-                  placeholder="Имя" required>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="last_name"
-                  placeholder="Фамилия" required>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="date_of_birth"
-                  placeholder="Дата рождения">
-              </div> --}}
               <div class="form-group w-25">
                 <input type="text" class="form-control" name="title"
                   placeholder="Заголовок события" required>
@@ -65,32 +38,11 @@
               <div class="form-group">
                 <textarea class="w-25" id="" name="content" required>{{ old('content') }}</textarea>
               </div>
-              {{-- <div class="form-group">
-                <label>Выберите роль</label>
-                <select name="role" class="form-control">
-                  @foreach ($roles as $id => $role)
-                    <option value="{{ $id }}"
-                      {{ $id == old('role') ? ' selected' : '' }}>
-                      {{ $role }}</option>
-                  @endforeach
-                </select>
-                @error('role')
-                  <div class="text-danger">{{ $message }}</div>
-                @enderror
-              </div> --}}
               <input type="submit" class="btn btn-primary" value="Добавить">
             </form>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
-
-      <!-- /.row (main row) -->
-  </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+    </section>
   </div>
-  <!-- /.content-wrapper -->
 @endsection

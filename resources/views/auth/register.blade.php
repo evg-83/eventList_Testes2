@@ -17,13 +17,14 @@
 </head>
 
 <body>
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{ route('auth.login') }}">Авторизация</a>
-          </li>
-          <li class="breadcrumb-item active">Регистрация</li>
-        </ol>
-      </div><!-- /.col -->
+  <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      <li class="breadcrumb-item"><a
+          href="{{ route('auth.login') }}">Авторизация</a>
+      </li>
+      <li class="breadcrumb-item active">Регистрация</li>
+    </ol>
+  </div><!-- /.col -->
 
   <div class="row justify-content-center mt-5">
     <div class="col-lg-4">
@@ -43,29 +44,37 @@
               <label for="login" class="form-label">Логин</label>
               <input type="text" name="login" class="form-control"
                 id="login" placeholder="Логин пользователя" required>
+              @error('login')
+                <div class="text-danger">{{ $message }}</div>
+              @enderror
             </div>
-            {{-- <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control"
-                id="email" placeholder="name@example.com" required>
-            </div> --}}
             <div class="mb-3">
               <label for="password" class="form-label">Пароль</label>
               <input type="password" name="password" class="form-control"
                 id="password" required>
+              @error('password')
+                <div class="text-danger">{{ $message }}</div>
+              @enderror
             </div>
             <div class="mb-3">
               <label for="first_name" class="form-label">Имя</label>
               <input type="text" name="first_name" class="form-control"
                 id="first_name" required>
+              @error('first_name')
+                <div class="text-danger">{{ $message }}</div>
+              @enderror
             </div>
             <div class="mb-3">
               <label for="last_name" class="form-label">Фамилия</label>
               <input type="text" name="last_name" class="form-control"
                 id="last_name" required>
+              @error('last_name')
+                <div class="text-danger">{{ $message }}</div>
+              @enderror
             </div>
             <div class="mb-3">
-              <label for="date_of_birth" class="form-label">Дата рождения</label>
+              <label for="date_of_birth" class="form-label">Дата
+                рождения</label>
               <input type="text" name="date_of_birth" class="form-control"
                 id="date_of_birth">
             </div>

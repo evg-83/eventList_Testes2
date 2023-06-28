@@ -12,7 +12,9 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a
                   href="{{ route('admin.index') }}">Админ</a></li>
-              <li class="breadcrumb-item active">Пользователи</li>
+              <li class="breadcrumb-item"><a
+                  href="{{ route('event.event') }}">События</a></li>
+              <li class="breadcrumb-item active">Событие пользователя</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -44,7 +46,8 @@
             @foreach ($usersParty as $userParty)
               <ul>
                 <li>
-                  <a href="{{ route('event.show', $userParty->id)}}" class="nav-link">
+                  <a href="{{ route('event.show', $userParty->id) }}"
+                    class="nav-link">
                     <h5 class="m-0">{{ $userParty->name }}</h5>
                   </a>
                 </li>
@@ -90,17 +93,12 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-  </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+    </section>
   </div>
-  <!-- /.content-wrapper -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
 
     <!-- Sidebar -->
     <div>
@@ -114,54 +112,58 @@
         </li>
 
         <div id="events">
+            <li class="nav-item">
+              <div class="nav-link">
+                <i class="nav-icon fas fa-solid fa-users"></i>
+                <p>
+                  Все события
+                </p>
+              </div>
+              <div class="card-body table-responsive p-0" style="height: 200px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <tbody>
+                    @foreach ($events as $event)
+                      <tr>
+                        <td class="pl-5">
+                          <a href="{{ route('event.showEvent', $event->id) }}"
+                            class="nav-link">
+                            {{ $event->title }}
+                          </a>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </div>
+
           <li class="nav-item">
             <div class="nav-link">
-              <i class="nav-icon fas fa-solid fa-users"></i>
+              <i class="nav-icon fas fa-solid fa-user"></i>
               <p>
-                Все события
+                Мои события
               </p>
             </div>
-            <table class="table table-sm">
-              <tbody>
-                @foreach ($events as $event)
-                  <tr>
-                    <td class="pl-5">
-                      <a href="{{ route('event.index', $event->id) }}"
-                        class="nav-link">
-                        {{ $event->title }}
-                      </a>
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
+            <div class="card-body table-responsive p-0" style="height: 200px;">
+              <table class="table table-head-fixed text-nowrap">
+                <tbody>
+                  @foreach ($events as $event)
+                    @if ($event->user_id == $userAuth->id)
+                      <tr>
+                        <td class="pl-5">
+                          <a href="{{ route('event.showEvent', $event->id) }}"
+                            class="nav-link">
+                            {{ $event->title }}
+                          </a>
+                        </td>
+                      </tr>
+                    @endif
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </li>
-        </div>
-
-        <li class="nav-item">
-          <div class="nav-link">
-            <i class="nav-icon fas fa-solid fa-user"></i>
-            <p>
-              Мои события
-            </p>
-          </div>
-          <table class="table table-sm">
-            <tbody>
-              @foreach ($events as $event)
-                @if ($event->user_id == $userAuth->id)
-                  <tr>
-                    <td class="pl-5">
-                      <a href="{{ route('event.index', $event->id) }}"
-                        class="nav-link">
-                        {{ $event->title }}
-                      </a>
-                    </td>
-                  </tr>
-                @endif
-              @endforeach
-            </tbody>
-          </table>
-        </li>
       </ul>
     </div>
     <!-- /.sidebar -->

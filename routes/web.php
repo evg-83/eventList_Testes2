@@ -30,11 +30,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/create', [App\Http\Controllers\Admin\AdminController::class, 'create'])->name('admin.create');
-    Route::post('/admin', [App\Http\Controllers\Admin\AdminController::class, 'store'])->name('admin.store');
+    // Route::post('/admin', [App\Http\Controllers\Admin\AdminController::class, 'store'])->name('admin.store');
     Route::get('/admin/{user}', [App\Http\Controllers\Admin\AdminController::class, 'show'])->name('admin.show');
     Route::delete('/admin/{user}', [App\Http\Controllers\Admin\AdminController::class, 'delete'])->name('admin.delete');
 
-    Route::get('/event/{event}', [App\Http\Controllers\EventController::class, 'index'])->name('event.index');
+    Route::get('/event', [App\Http\Controllers\EventController::class, 'event'])->name('event.event');
+    Route::post('/event', [App\Http\Controllers\EventController::class, 'store'])->name('event.store');
+    Route::get('/event/{event}', [App\Http\Controllers\EventController::class, 'showEvent'])->name('event.showEvent');
     Route::get('/event/show/{usersParty}', [App\Http\Controllers\EventController::class, 'show'])->name('event.show');
     Route::post('/event/{event}', [App\Http\Controllers\EventController::class, 'update'])->name('event.update');
     Route::delete('/event/{event}', [App\Http\Controllers\EventController::class, 'deleteUserParty'])->name('event.deleteUserParty');

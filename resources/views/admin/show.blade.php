@@ -8,20 +8,12 @@
         <div class="row mb-2">
           <div class="col-sm-6 d-flex align-items-center">
             <h1 class="m-0 mr-2">{{ $user->first_name }}</h1>
-            {{-- <a href="{{ route('admin.user.edit', $user->id) }}"
-              class="text-success"><i class="fas fa-pencil-alt"></i></a> --}}
-            <form action="{{ route('admin.delete', $user->id) }}" method="POST">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="border-0 bg-transparent">
-                <i class="fas fa-trash text-danger" role="button"></i></a>
-              </button>
-            </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a
-                  href="{{ route('event.index', $user->id) }}">Главная</a></li>
+                  href="{{ route('event.event') }}">События</a>
+              </li>
               <li class="breadcrumb-item"><a
                   href="{{ route('admin.index') }}">Пользователи</a></li>
               <li class="breadcrumb-item active">{{ $user->first_name }}</li>
@@ -60,41 +52,59 @@
                       <td>{{ $user->last_name }}</td>
                     </tr>
                     <tr>
-                      <td>Название события</td>
-                      @foreach ($events as $event)
-                        <td>{{ $event->title }}</td>
-                      @endforeach
-                    </tr>
-                    <tr>
-                      <td>Описание события</td>
-                      @foreach ($events as $event)
-                        <td>{{ $event->content }}</td>
-                      @endforeach
-                    </tr>
-                    <tr>
-                      <td>Участники события</td>
-                      @foreach ($usersParty as $userParty)
-                        <td>
-                          {{ $userParty->name }}
-                        </td>
-                      @endforeach
+                      <td>Дата рождения</td>
+                      <td>{{ $user->date_of_birth }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
-
-      <!-- /.row (main row) -->
-  </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+    </section>
   </div>
-  <!-- /.content-wrapper -->
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+
+    <!-- Sidebar -->
+    <div>
+      <ul class="pt-3 nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview" role="menu" data-accordion="false">
+
+        <li class="nav-item mb-5 pl-5">
+          <div class="col-sm-6">
+            <h1 class="m-0">{{ $user->first_name }}</h1>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <div class="nav-link">
+            <i class="nav-icon fas fa-solid fa-user"></i>
+            <p>
+              События
+            </p>
+          </div>
+          <div class="card-body table-responsive p-0" style="height: 400px;">
+            <table class="table table-head-fixed text-nowrap">
+              <tbody>
+                @foreach ($events as $event)
+                  <tr>
+                    <td class="pl-5">
+                      <a href="{{ route('event.showEvent', $event->id) }}"
+                        class="nav-link">
+                        {{ $event->title }}
+                      </a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- /.sidebar -->
+  </aside>
 @endsection

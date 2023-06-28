@@ -13,10 +13,13 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a
-                  href="{{ route('event.index', $userAuth->id) }}">Главная</a></li>
-              <li class="breadcrumb-item"><a
                   href="{{ route('admin.index') }}">Админ</a></li>
-              <li class="breadcrumb-item active">{{ $userLog->pluck('first_name')->first() }}</li>
+              <li class="breadcrumb-item"><a
+                  href="{{ route('event.showEvent', $usersParty->event_id) }}">Событие
+                  пользователя</a>
+              </li>
+              <li class="breadcrumb-item active">
+                {{ $userLog->pluck('first_name')->first() }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,6 +53,10 @@
                     <tr>
                       <td>Фамилия</td>
                       <td>{{ $userLog->pluck('last_name')->first() }}</td>
+                    </tr>
+                    <tr>
+                      <td>Дата рождения</td>
+                      <td>{{ $userLog->pluck('date_of_birth')->first() }}</td>
                     </tr>
                   </tbody>
                 </table>
